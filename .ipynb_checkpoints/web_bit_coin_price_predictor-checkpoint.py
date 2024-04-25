@@ -17,8 +17,8 @@ stock = st.text_input("Enter the stock here",stock)
 
 bit_coin_data = yf.download(stock, start, end)
 
-model = load_model("model.keras")
-st.subheader(stock,"Data")
+model = load_model("Latest_bit_coin_model.keras")
+st.subheader("Bank NIFTY Data")
 st.write(bit_coin_data)
 
 splitting_len = int(len(bit_coin_data)*0.9)
@@ -70,8 +70,7 @@ st.subheader("Original values vs Predicted values")
 st.write(ploting_data)
 
 st.subheader('Original Close Price vs Predicted Close price')
-figsize = (15, 6)
-fig = plt.figure(figsize=figsize)
+fig = plt.figure(figsize=(15,6))
 plt.plot()
 
 plt.plot(pd.concat([bit_coin_data.Close[:splitting_len+100],ploting_data], axis=0))
@@ -79,7 +78,7 @@ plt.legend(["Data- not used", "Original Test data", "Predicted Test data"])
 st.pyplot(fig)
 
 st.subheader("Future Price values")
-st.write(ploting_data)
+# st.write(ploting_data)
 
 last_100 = bit_coin_data[['Close']].tail(100)
 last_100 = scaler.fit_transform(last_100['Close'].values.reshape(-1,1)).reshape(1,-1,1)
@@ -107,5 +106,5 @@ plt.xlabel('days')
 plt.ylabel('Close Price')
 plt.xticks(range(no_of_days))
 plt.yticks(range(min(list(map(int, future_results))), max(list(map(int, future_results))),100))
-plt.title('Closing Price')
+plt.title('Closing Price of Google')
 st.pyplot(fig)
